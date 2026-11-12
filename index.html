@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="RATEX؛ مرجع مشاهده قیمت ارز، طلا، سکه و رمزارز">
+
+<meta name="theme-color" content="#090909">
+
+<title>RATEX | Live Market Prices</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #090909;
+    color: white;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+/* HEADER */
+
+header {
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #101010;
+    border-bottom: 1px solid #292929;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ff7900;
+    letter-spacing: 3px;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #ff7900;
+}
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 75px 20px 45px;
+    background: radial-gradient(
+        circle at top,
+        #291707,
+        #090909 65%
+    );
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #ff7900;
+}
+
+.hero p {
+    color: #aaa;
+    line-height: 2.2;
+    font-size: 15px;
+}
+
+.status {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 22px;
+    border-radius: 30px;
+    background: #191919;
+    border: 1px solid #ff7900;
+    color: #ff7900;
+    font-size: 13px;
+}
+
+#clock {
+    margin-top: 22px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+/* MAIN */
+
+.container {
+    width: 88%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-title {
+    margin: 45px 0 22px;
+    font-size: 23px;
+    border-right: 4px solid #ff7900;
+    padding-right: 14px;
+}
+
+/* PRICE CARDS */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+    );
+    gap: 20px;
+}
+
+.card {
+    background: linear-gradient(
+        145deg,
+        #1c1c1c,
+        #111111
+    );
+
+    border: 1px solid #292929;
+    border-radius: 17px;
+    padding: 25px;
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: #ff7900;
+    box-shadow: 0 8px 30px #ff790025;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card h3 {
+    font-size: 17px;
+    color: #eee;
+}
+
+.icon {
+    font-size: 28px;
+}
+
+.symbol {
+    color: #777;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.price {
+    margin-top: 27px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ff7900;
+}
+
+.waiting {
+    color: #888;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+/* CONVERTER */
+
+.converter {
+    margin: 50px 0;
+    padding: 30px;
+    background: #151515;
+    border: 1px solid #292929;
+    border-radius: 18px;
+}
+
+.converter h2 {
+    color: #ff7900;
+    margin-bottom: 18px;
+}
+
+.converter p {
+    color: #aaa;
+    line-height: 2;
+}
+
+.converter input {
+    width: 100%;
+    padding: 15px;
+    margin-top: 18px;
+    background: #090909;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.converter input:focus {
+    border-color: #ff7900;
+}
+
+.converter button {
+    background: #ff7900;
+    color: #111;
+    border: none;
+    padding: 14px 25px;
+    margin-top: 15px;
+    border-radius: 9px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.converter button:hover {
+    background: #ff982e;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 60px;
+    padding: 35px 15px;
+    text-align: center;
+    background: #111;
+    border-top: 1px solid #292929;
+    color: #888;
+    line-height: 2.5;
+    font-size: 13px;
+}
+
+footer span {
+    color: #ff7900;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.footer-logo {
+    color: #ff7900;
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+/* MOBILE */
+
+@media(max-width: 600px) {
+  header {
+        padding: 18px;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .logo {
+        font-size: 27px;
+    }
+
+    nav {
+        gap: 20px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 13px;
+    }
+
+    .container {
+        width: 92%;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">RATEX</div>
+
+    <nav>
+        <a href="#currency">ارز</a>
+        <a href="#gold">طلا و سکه</a>
+        <a href="#crypto">رمزارز</a>
+    </nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>
+        بازار را با <span>RATEX</span> دنبال کن
+    </h1>
+
+    <p>
+        مرجع مشاهده قیمت ارز، طلا، سکه و رمزارز
+        <br>
+        تمام بازار در یک نگاه
+    </p>
+
+    <div class="status">
+        ● نسخه اولیه RATEX
+    </div>
+
+    <div id="clock"></div>
+
+</section>
+
+
+<main class="container">
+
+
+<!-- CURRENCY -->
+
+<h2 class="section-title" id="currency">
+    💱 قیمت ارز
+</h2>
+
+<div class="grid">
+
+    <div class="card">
+        <div class="card-top">
+            <h3>دلار آمریکا</h3>
+            <span class="icon">🇺🇸</span>
+        </div>
+        <div class="symbol">USD / IRR</div>
+        <div class="price">در انتظار اتصال قیمت</div>
+        <div class="waiting">قیمت هنوز دریافت نشده است</div>
+    </div>
+
+    <div class="card">
+        <div class="card-top">
+            <h3>یورو</h3>
+            <span class="icon">🇪🇺</span>
+        </div>
+        <div class="symbol">EUR / IRR</div>
+        <div class="price">در انتظار اتصال قیمت</div>
+        <div class="waiting">قیمت هنوز دریافت نشده است</div>
+    </div>
+
+    <div class="card">
+        <div class="card-top">
+            <h3>پوند انگلیس</h3>
+            <span class="icon">🇬🇧</span>
+        </div>
+        <div class="symbol">GBP / IRR</div>
+        <div class="price">در انتظار اتصال قیمت</div>
+        <div class="waiting">قیمت هنوز دریافت نشده است</div>
+    </div>
+
+</div>
+
+
+<!-- GOLD -->
+
+<h2 class="section-title" id="gold">
+    🥇 قیمت طلا و سکه
+</h2>
+
+<div class="grid">
+
+    <div class="card">
+        <div class="card-top">
+            <h3>طلای ۱۸ عیار</h3>
+            <span class="icon">🥇</span>
+        </div>
+        <div class="symbol">هر گرم</div>
+        <div class="price">در انتظار اتصال قیمت</div>
+        <div class="waiting">قیمت هنوز دریافت نشده است</div>
+    </div>
+
+    <div class="card">
+        <div class="card-top">
+            <h3>سکه امامی</h3>
+            <span class="icon">🪙</span>
+        </div>
+        <div class="symbol">تمام سکه</div>
+        <div class="price">در انتظار اتصال قیمت</div>
+        <div class="waiting">قیمت هنوز دریافت نشده است</div>
+    </div>
+
+    <div class="card">
+        <div class="card-top">
+            <h3>نیم سکه</h3>
+            <span class="icon">🪙</span>
+        </div>
+        <div class="symbol">نیم سکه بهار آزادی</div>
+        <div class="price">در انتظار اتصال قیمت</div>
+        <div class="waiting">قیمت هنوز دریافت نشده است</div>
+    </div>
+
+</div>
+
+
+<!-- CRYPTO -->
+
+<h2 class="section-title" id="crypto">
+    ₿ قیمت رمزارزها
+</h2>
+
+<div class="grid">
+
+    <div class="card">
+        <div class="card-top">
+            <h3>بیت کوین</h3>
+            <span class="icon">₿</span>
+        </div>
+        <div class="symbol">BTC</div>
+        <div class="price">در انتظار اتصال قیمت</div>
+        <div class="waiting">قیمت هنوز دریافت نشده است</div>
+    </div>
+
+    <div class="card">
+        <div class="card-top">
+            <h3>تتر</h3>
+            <span class="icon">₮</span>
+        </div>
+        <div class="symbol">USDT</div>
+        <div class="price">در انتظار اتصال قیمت</div>
+        <div class="waiting">قیمت هنوز دریافت نشده است</div>
+    </div>
+
+</div>
+
+
+<!-- CONVERTER -->
+
+<section class="converter">
+
+    <h2>🧮 ماشین حساب بازار</h2>
+
+    <p>
+        بخش تبدیل ارز و محاسبه قیمت به‌زودی
+        با اتصال اطلاعات واقعی بازار فعال می‌شود.
+    </p>
+    <input
+        type="number"
+        placeholder="مقدار مورد نظر"
+        disabled
+    >
+
+    <button disabled>
+        به‌زودی فعال می‌شود
+    </button>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-logo">RATEX</div>
+
+    <div>
+        قیمت‌ها، لحظه‌به‌لحظه
+    </div>
+
+    <div>
+        ساخته شده با ❤️ توسط
+        <span>ARMIN MOUSAVI</span>
+    </div>
+
+    <div>
+        © 2026 RATEX | All Rights Reserved
+    </div>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+function updateClock() {
+
+    const now = new Date();
+
+    document.getElementById("clock").innerText =
+        "ساعت سیستم: " +
+        now.toLocaleTimeString("fa-IR");
+
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+</script>
+
+</body>
+</html>
