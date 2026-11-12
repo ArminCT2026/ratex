@@ -1,792 +1,552 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta name="description" content="RATEX؛ مرجع مشاهده قیمت ارز، طلا، سکه و رمزارز">
+<meta name="description" content="RATEX؛ مشاهده قیمت روز ارز، طلا، سکه و رمزارزها.">
 <meta name="theme-color" content="#090909">
-
-<title>RATEX | Live Market Prices</title>
+<title>RATEX | نرخ لحظه‌ای بازار</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+  --bg:#090909;
+  --card:#171717;
+  --orange:#ff7900;
+  --text:#fff;
+  --muted:#999;
+  --green:#20c878;
+  --red:#ff5050;
+  --border:#292929;
 }
 
-html {
-    scroll-behavior: smooth;
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 body {
-    background: #090909;
-    color: white;
-    font-family: Tahoma, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;
+  line-height:1.8;
 }
 
-/* HEADER */
+.container {
+  width:min(1100px,92%);
+  margin:auto;
+}
 
 header {
-    padding: 22px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #101010;
-    border-bottom: 1px solid #292929;
+  background:#0d0d0d;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.navbar {
+  min-height:75px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .logo {
-    font-size: 32px;
-    font-weight: bold;
-    color: #ff7900;
-    letter-spacing: 3px;
+  font-size:29px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:var(--orange);
 }
 
-nav {
-    display: flex;
-    gap: 25px;
+.logo span {
+  color:white;
 }
 
-nav a {
-    color: #ccc;
-    text-decoration: none;
-    font-size: 14px;
-    transition: 0.3s;
+.nav-label {
+  color:var(--muted);
+  font-size:13px;
 }
-
-nav a:hover {
-    color: #ff7900;
-}
-
-/* HERO */
 
 .hero {
-    text-align: center;
-    padding: 75px 20px 45px;
-    background: radial-gradient(
-        circle at top,
-        #291707,
-        #090909 65%
-    );
+  padding:55px 0 35px;
+  text-align:center;
 }
 
 .hero h1 {
-    font-size: 40px;
-    margin-bottom: 20px;
+  font-size:clamp(27px,5vw,43px);
+  margin-bottom:10px;
 }
 
 .hero h1 span {
-    color: #ff7900;
+  color:var(--orange);
 }
 
 .hero p {
-    color: #aaa;
-    line-height: 2.2;
-    font-size: 15px;
+  color:var(--muted);
+  font-size:14px;
 }
 
-.status {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 12px 22px;
-    border-radius: 30px;
-    background: #191919;
-    border: 1px solid #ff7900;
-    color: #ff7900;
-    font-size: 13px;
+.status-box {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  margin-top:22px;
+  color:var(--muted);
+  font-size:12px;
 }
 
-#clock {
-    margin-top: 22px;
-    color: #bbb;
-    font-size: 14px;
+.dot {
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#777;
 }
 
-/* MAIN */
+.dot.online {
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+}
 
-.container {
-    width: 88%;
-    max-width: 1200px;
-    margin: auto;
+.dot.offline {
+  background:var(--red);
 }
 
 .section-title {
-    margin: 45px 0 22px;
-    font-size: 23px;
-    border-right: 4px solid #ff7900;
-    padding-right: 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:35px 0 18px;
+  font-size:20px;
 }
 
-/* PRICE CARDS */
+.section-title::before {
+  content:"";
+  width:5px;
+  height:25px;
+  background:var(--orange);
+  border-radius:5px;
+}
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(220px, 1fr)
-    );
-    gap: 20px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
 }
 
-.card {
-    background: linear-gradient(
-        145deg,
-        #1c1c1c,
-        #111111
-    );
-
-    border: 1px solid #292929;
-    border-radius: 17px;
-    padding: 25px;
-    transition: 0.3s;
+.price-card {
+  background:linear-gradient(145deg,#202020,var(--card));
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:20px;
+  transition:.25s;
+  min-width:0;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    border-color: #ff7900;
-    box-shadow: 0 8px 30px #ff790025;
+.price-card:hover {
+  border-color:var(--orange);
+  transform:translateY(-4px);
 }
 
 .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
 }
 
-.card h3 {
-    font-size: 17px;
-    color: #eee;
+.asset-name {
+  font-size:15px;
+  font-weight:bold;
 }
 
-.icon {
-    font-size: 28px;
-}
-
-.symbol {
-    color: #777;
-    font-size: 12px;
-    margin-top: 10px;
+.asset-symbol {
+  color:var(--orange);
+  font-size:11px;
+  background:#33200f;
+  padding:3px 9px;
+  border-radius:20px;
 }
 
 .price {
-    margin-top: 27px;
-    font-size: 17px;
-    font-weight: bold;
-    color: #ff7900;
-    overflow-wrap: anywhere;
+  font-size:clamp(18px,3vw,23px);
+  font-weight:bold;
+  margin-top:17px;
+  overflow-wrap:anywhere;
 }
 
-.waiting {
-    color: #888;
-    font-size: 12px;
-    margin-top: 12px;
-    line-height: 1.8;
+.unit {
+  font-size:11px;
+  color:var(--muted);
+  font-weight:normal;
 }
 
-/* CONVERTER */
-
-.converter {
-    margin: 50px 0;
-    padding: 30px;
-    background: #151515;
-    border: 1px solid #292929;
-    border-radius: 18px;
+.change {
+  display:inline-block;
+  margin-top:10px;
+  font-size:12px;
+  padding:3px 9px;
+  border-radius:20px;
+  background:#242424;
+  color:var(--muted);
 }
 
-.converter h2 {
-    color: #ff7900;
-    margin-bottom: 18px;
+.change.up {
+  color:var(--green);
+  background:#102b20;
 }
 
-.converter p {
-    color: #aaa;
-    line-height: 2;
+.change.down {
+  color:var(--red);
+  background:#301616;
 }
 
-.converter input {
-    width: 100%;
-    padding: 15px;
-    margin-top: 18px;
-    background: #090909;
-    border: 1px solid #333;
-    border-radius: 10px;
-    color: white;
-    font-size: 16px;
-    outline: none;
+.info-panel {
+  margin-top:35px;
+  background:#131313;
+  border:1px solid var(--border);
+  padding:20px;
+  border-radius:15px;
+  color:var(--muted);
+  font-size:13px;
 }
 
-.converter input:focus {
-    border-color: #ff7900;
+.info-panel strong {
+  color:var(--orange);
 }
 
-.converter button {
-    background: #ff7900;
-    color: #111;
-    border: none;
-    padding: 14px 25px;
-    margin-top: 15px;
-    border-radius: 9px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+.update-time {
+  margin-top:8px;
+  font-size:12px;
 }
-
-.converter button:hover {
-    background: #ff982e;
-}
-
-/* FOOTER */
 
 footer {
-    margin-top: 60px;
-    padding: 35px 15px;
-    text-align: center;
-    background: #111;
-    border-top: 1px solid #292929;
-    color: #888;
-    line-height: 2.5;
-    font-size: 13px;
+  margin-top:55px;
+  border-top:1px solid var(--border);
+  padding:25px 0;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
 }
 
-footer span {
-    color: #ff7900;
-    font-weight: bold;
-    letter-spacing: 1px;
+footer strong {
+  color:var(--orange);
 }
 
-.footer-logo {
-    color: #ff7900;
-    font-size: 23px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
+.creator {
+  margin-top:7px;
+  color:#777;
 }
 
-/* MOBILE */
+@media(max-width:750px) {
+  .grid {
+    grid-template-columns:repeat(2,1fr);
+    gap:11px;
+  }
 
-@media(max-width: 600px) {
-    <div class="waiting" data-updated="btc">
-            قیمت هنوز دریافت نشده است
-        </div>
-    </div>
+  .price-card {
+    padding:15px;
+  }
 
-
-    <div class="card">
-        <div class="card-top">
-            <h3>تتر</h3>
-            <span class="icon">₮</span>
-        </div>
-
-        <div class="symbol">USDT / تومان</div>
-
-        <div class="price" data-id="usdt">
-            در انتظار اتصال قیمت
-        </div>
-
-        <div class="waiting" data-updated="usdt">
-            قیمت هنوز دریافت نشده است
-        </div>
-    </div>
-
-</div>
-
-
-<!-- CONVERTER -->
-
-<section class="converter">
-
-    <h2>🧮 ماشین حساب بازار</h2>
-
-    <p>
-        بخش تبدیل ارز و محاسبه قیمت به‌زودی
-        با امکانات جدید فعال می‌شود.
-    </p>
-
-    <input
-        type="number"
-        placeholder="مقدار مورد نظر"
-        disabled
-    >
-
-    <button disabled>
-        به‌زودی فعال می‌شود
-    </button>
-
-</section>
-
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <div class="footer-logo">RATEX</div>
-
-    <div>
-        قیمت‌ها با به‌روزرسانی دوره‌ای
-    </div>
-
-    <div>
-        منبع داده:
-        <a href="https://nerkhara.com/en/api/"
-           target="_blank"
-           rel="noopener"
-           style="color:#ff7900">
-           NerkhAra API
-        </a>
-    </div>
-
-    <div>
-        ساخته شده با ❤️ توسط
-        <span>ARMIN MOUSAVI</span>
-    </div>
-
-    <div>
-        © 2026 RATEX | All Rights Reserved
-    </div>
-
-</footer>
-
-
-<!-- JAVASCRIPT -->
-
-<script>
-
-// ساعت سایت
-
-function updateClock() {
-
-    const now = new Date();
-
-    document.getElementById("clock").innerText =
-        "ساعت سیستم: " +
-        now.toLocaleTimeString("fa-IR");
-
+  .hero {
+    padding-top:40px;
+  }
 }
 
-updateClock();
-
-setInterval(updateClock, 1000);
-
-
-// شناسه قیمت‌ها
-
-const rateIds = [
-    "usd",
-    "eur",
-    "gbp",
-    "gold-18k",
-    "coin-emami",
-    "coin-half",
-    "btc",
-    "usdt"
-];
-
-
-// قالب نمایش اعداد
-
-const numberFormat = new Intl.NumberFormat(
-    "fa-IR",
-    {
-        maximumFractionDigits: 2
-    }
-);
-
-
-// دریافت قیمت‌ها
-
-async function updatePrices() {
-
-    const status = document.getElementById(
-        "connection-status"
-    );
-
-    try {
-
-        const response = await fetch(
-            "https://nerkhara.com/api/v1/latest.json",
-            {
-                cache: "no-store"
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error("HTTP " + response.status);
-        }
-
-        const data = await response.json();
-
-        if (!Array.isArray(data.items)) {
-            throw new Error("ساختار اطلاعات معتبر نیست");
-        }
-
-
-        // اتصال قیمت هر کارت
-
-        for (const id of rateIds) {
-
-            const item = data.items.find(
-                entry => entry.id === id
-            );
-
-            const priceElement =
-                document.querySelector(
-                    '.price[data-id="' + id + '"]'
-                );
-
-            const updatedElement =
-                document.querySelector(
-                    '.waiting[data-updated="' + id + '"]'
-                );
-
-
-            if (!priceElement || !updatedElement) {
-                continue;
-            }
-
-
-            if (
-                !item ||
-                item.price === null ||
-                item.price === undefined ||
-                !Number.isFinite(Number(item.price))
-            ) {
-
-                priceElement.textContent =
-                    "قیمت در دسترس نیست";
-
-                updatedElement.textContent =
-                    "اطلاعات این مورد دریافت نشد";
-
-                continue;
-            }
-
-
-            // تبدیل قیمت به عدد فارسی
-
-            const formatted = numberFormat.format(
-                Number(item.price)
-            );
-
-
-            // واحد قیمت
-
-            let unitLabel = item.unit;
-
-            if (item.unit === "IRT") {
-                unitLabel = "تومان";
-            }
-
-
-            priceElement.textContent =
-                formatted + " " + unitLabel;
-
-
-            // زمان آخرین به‌روزرسانی
-
-            const time =
-                item.updated_utc ||
-                data.generated_utc;
-
-            if (time) {
-
-                const date = new Date(time + "Z");
-                header {
-        padding: 18px;
-        flex-direction: column;
-        gap: 18px;
-    }
-
-    .logo {
-        font-size: 27px;
-    }
-
-    nav {
-        gap: 20px;
-    }
-
-    nav a {
-        font-size: 12px;
-    }
-
-    .hero h1 {
-        font-size: 28px;
-    }
-
-    .hero p {
-        font-size: 13px;
-    }
-
-    .container {
-        width: 92%;
-    }
-
-    .section-title {
-        font-size: 20px;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
+@media(max-width:390px) {
+  .grid {
+    grid-template-columns:1fr;
+  }
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-
 <header>
-
-    <div class="logo">RATEX</div>
-
-    <nav>
-        <a href="#currency">ارز</a>
-        <a href="#gold">طلا و سکه</a>
-        <a href="#crypto">رمزارز</a>
-    </nav>
-
+  <div class="container navbar">
+    <a class="logo" href="#">RAT<span>EX</span></a>
+    <div class="nav-label">مرجع نرخ بازار</div>
+  </div>
 </header>
-
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <h1>
-        بازار را با <span>RATEX</span> دنبال کن
-    </h1>
-
-    <p>
-        مرجع مشاهده قیمت ارز، طلا، سکه و رمزارز
-        <br>
-        تمام بازار در یک نگاه
-    </p>
-
-    <div class="status" id="connection-status">
-        ● در حال اتصال به بازار...
-    </div>
-
-    <div id="clock"></div>
-
-</section>
-
 
 <main class="container">
 
+<section class="hero">
+  <h1>بازار را با <span>RATEX</span> دنبال کن</h1>
+  <p>قیمت ارز، طلا، سکه و رمزارزها در یک نگاه</p>
+  <div class="status-box">
+    <span class="dot" id="statusDot"></span>
+    <span id="statusText">در حال اتصال به سرور...</span>
+  </div>
+</section>
 
-<!-- CURRENCY -->
+<h2 class="section-title">ارزهای رایج</h2>
 
-<h2 class="section-title" id="currency">
-    💱 قیمت ارز
-</h2>
+<section class="grid">
 
-<div class="grid">
+<article class="price-card">
+  <div class="card-top">
+    <span class="asset-name">دلار آمریکا</span>
+    <span class="asset-symbol">USD</span>
+  </div>
+  <div class="price" id="price-usd">در انتظار...</div>
+  <div class="change" id="change-usd">--</div>
+</article>
 
-    <div class="card">
-        <div class="card-top">
-            <h3>دلار آمریکا</h3>
-            <span class="icon">🇺🇸</span>
-        </div>
+<article class="price-card">
+  <div class="card-top">
+    <span class="asset-name">یورو</span>
+    <span class="asset-symbol">EUR</span>
+  </div>
+  <div class="price" id="price-eur">در انتظار...</div>
+  <div class="change" id="change-eur">--</div>
+</article>
 
-        <div class="symbol">USD / تومان</div>
+<article class="price-card">
+  <div class="card-top">
+    <span class="asset-name">پوند انگلیس</span>
+    <span class="asset-symbol">GBP</span>
+  </div>
+  <div class="price" id="price-gbp">در انتظار...</div>
+  <div class="change" id="change-gbp">--</div>
+</article>
 
-        <div class="price" data-id="usd">
-            در انتظار اتصال قیمت
-        </div>
+</section>
 
-        <div class="waiting" data-updated="usd">
-            قیمت هنوز دریافت نشده است
-        </div>
-    </div>
+<h2 class="section-title">طلا و سکه</h2>
 
+<section class="grid">
 
-    <div class="card">
-        <div class="card-top">
-            <h3>یورو</h3>
-            <span class="icon">🇪🇺</span>
-        </div>
+<article class="price-card">
+  <div class="card-top">
+    <span class="asset-name">طلای ۱۸ عیار</span>
+    <span class="asset-symbol">18K</span>
+  </div>
+  <div class="price" id="price-gold-18k">در انتظار...</div>
+  <div class="change" id="change-gold-18k">--</div>
+</article>
 
-        <div class="symbol">EUR / تومان</div>
+<article class="price-card">
+  <div class="card-top">
+    <span class="asset-name">سکه امامی</span>
+    <span class="asset-symbol">EMAMI</span>
+  </div>
+  <div class="price" id="price-coin-emami">در انتظار...</div>
+  <div class="change" id="change-coin-emami">--</div>
+</article>
 
-        <div class="price" data-id="eur">
-            در انتظار اتصال قیمت
-        </div>
+<article class="price-card">
+  <div class="card-top">
+    <span class="asset-name">نیم سکه</span>
+    <span class="asset-symbol">HALF</span>
+  </div>
+  <div class="price" id="price-coin-half">در انتظار...</div>
+  <div class="change" id="change-coin-half">--</div>
+</article>
 
-        <div class="waiting" data-updated="eur">
-            قیمت هنوز دریافت نشده است
-        </div>
-    </div>
+</section>
 
+<h2 class="section-title">ارزهای دیجیتال</h2>
 
-    <div class="card">
-        <div class="card-top">
-            <h3>پوند انگلیس</h3>
-            <span class="icon">🇬🇧</span>
-        </div>
+<section class="grid">
 
-        <div class="symbol">GBP / تومان</div>
+<article class="price-card">
+  <div class="card-top">
+    <span class="asset-name">بیت کوین</span>
+    <span class="asset-symbol">BTC</span>
+  </div>
+  <div class="price" id="price-btc">در انتظار...</div>
+  <div class="change" id="change-btc">--</div>
+</article>
 
-        <div class="price" data-id="gbp">
-            در انتظار اتصال قیمت
-        </div>
+<article class="price-card">
+  <div class="card-top">
+    <span class="asset-name">تتر</span>
+    <span class="asset-symbol">USDT</span>
+  </div>
+  <div class="price" id="price-usdt">در انتظار...</div>
+  <div class="change" id="change-usdt">--</div>
+</article>
 
-        <div class="waiting" data-updated="gbp">
-            قیمت هنوز دریافت نشده است
-        </div>
-    </div>
+</section>
 
-</div>
+<section class="info-panel">
+  <strong>درباره اطلاعات RATEX</strong>
+  <p>
+    قیمت‌ها از سرویس اطلاعات بازار دریافت می‌شوند.
+    ممکن است اطلاعات با تأخیر به‌روزرسانی شوند.
+    این اطلاعات صرفاً جهت اطلاع‌رسانی هستند
+    و توصیه خرید یا فروش محسوب نمی‌شوند.
+  </p>
 
+  <div class="update-time" id="updateTime">
+    آخرین به‌روزرسانی: هنوز دریافت نشده
+  </div>
+</section>
 
-<!-- GOLD -->
+</main>
 
-<h2 class="section-title" id="gold">
-    🥇 قیمت طلا و سکه
-</h2>
+<footer>
+  <div>RATEX | همراه بازار</div>
+  <div class="creator">
+    ساخته شده با ❤️ توسط <strong>ARMIN MOUSAVI</strong>
+  </div>
+</footer>
 
-<div class="grid">
+<script>
+const API_URL = "https://nerkhara.com/api/v1/latest.json";
 
-    <div class="card">
-        <div class="card-top">
-            <h3>طلای ۱۸ عیار</h3>
-            <span class="icon">🥇</span>
-        </div>
+const assets = [
+  "usd",
+  "eur",
+  "gbp",
+  "gold-18k",
+  "coin-emami",
+  "coin-half",
+  "btc",
+  "usdt"
+];
 
-        <div class="symbol">هر گرم</div>
+const numberFormat = new Intl.NumberFormat("fa-IR", {
+  maximumFractionDigits:2
+});
 
-        <div class="price" data-id="gold-18k">
-            در انتظار اتصال قیمت
-        </div>
+function showStatus(online,message) {
+  const dot = document.getElementById("statusDot");
+  const text = document.getElementById("statusText");
 
-        <div class="waiting" data-updated="gold-18k">
-            قیمت هنوز دریافت نشده است
-        </div>
-    </div>
-
-
-    <div class="card">
-        <div class="card-top">
-            <h3>سکه امامی</h3>
-            <span class="icon">🪙</span>
-        </div>
-
-        <div class="symbol">تمام سکه</div>
-
-        <div class="price" data-id="coin-emami">
-            در انتظار اتصال قیمت
-        </div>
-
-        <div class="waiting" data-updated="coin-emami">
-            قیمت هنوز دریافت نشده است
-        </div>
-    </div>
-
-
-    <div class="card">
-        <div class="card-top">
-            <h3>نیم سکه</h3>
-            <span class="icon">🪙</span>
-        </div>
-
-        <div class="symbol">نیم سکه بهار آزادی</div>
-
-        <div class="price" data-id="coin-half">
-            در انتظار اتصال قیمت
-        </div>
-
-        <div class="waiting" data-updated="coin-half">
-            قیمت هنوز دریافت نشده است
-        </div>
-    </div>
-
-</div>
-
-
-<!-- CRYPTO -->
-
-<h2 class="section-title" id="crypto">
-    ₿ قیمت رمزارزها
-</h2>
-
-<div class="grid">
-
-    <div class="card">
-        <div class="card-top">
-            <h3>بیت کوین</h3>
-            <span class="icon">₿</span>
-        </div>
-
-        <div class="symbol">BTC / USDT</div>
-
-        <div class="price" data-id="btc">
-            در انتظار اتصال قیمت
-        </div>
-        updatedElement.textContent =
-                    "آخرین دریافت: " +
-                    date.toLocaleString("fa-IR");
-
-            } else {
-
-                updatedElement.textContent =
-                    "اطلاعات دریافت شد";
-
-            }
-
-        }
-
-
-        // وضعیت اتصال
-
-        if (data.stale === true) {
-
-            status.textContent =
-                "⚠️ اطلاعات دریافت شد؛ ممکن است قدیمی باشد";
-
-        } else {
-
-            status.textContent =
-                "● اتصال برقرار است";
-
-        }
-
-
-        console.log(
-            "RATEX: قیمت‌ها دریافت شدند",
-            data
-        );
-
-
-    } catch (error) {
-
-        status.textContent =
-            "● دریافت قیمت‌ها ناموفق بود";
-
-        console.error(
-            "RATEX API ERROR:",
-            error
-        );
-
-    }
-
+  dot.className = online ? "dot online" : "dot offline";
+  text.textContent = message;
 }
 
+function formatPrice(value) {
+  if(typeof value !== "number" || !Number.isFinite(value)) {
+    return "قیمت نامشخص";
+  }
 
-// اجرای اولیه
+  return numberFormat.format(value);
+}
 
-updatePrices();
+function showChange(id,value) {
+  const element = document.getElementById("change-" + id);
 
+  if(typeof value !== "number" || !Number.isFinite(value)) {
+    element.textContent = "تغییر ثبت نشده";
+    element.className = "change";
+    return;
+  }
 
-// به‌روزرسانی هر ۱۰ دقیقه
+  const sign = value > 0 ? "+" : "";
 
-setInterval(updatePrices, 600000);
+  element.textContent = sign + numberFormat.format(value) + "٪";
+    if(value > 0) {
+    element.className = "change up";
+  } else if(value < 0) {
+    element.className = "change down";
+  } else {
+    element.className = "change";
+  }
+}
 
+function formatTime(value) {
+  if(!value) return "نامشخص";
+
+  const date = new Date(
+    value.endsWith("Z") ? value : value + "Z"
+  );
+
+  if(Number.isNaN(date.getTime())) {
+    return "نامشخص";
+  }
+
+  return new Intl.DateTimeFormat("fa-IR", {
+    dateStyle:"short",
+    timeStyle:"short"
+  }).format(date);
+}
+
+async function loadPrices() {
+  showStatus(false,"در حال دریافت قیمت‌ها...");
+
+  try {
+    const response = await fetch(API_URL,{
+      cache:"no-store"
+    });
+
+    if(!response.ok) {
+      throw new Error("خطای سرور: " + response.status);
+    }
+
+    const data = await response.json();
+
+    if(!Array.isArray(data.items)) {
+      throw new Error("ساختار اطلاعات معتبر نیست");
+    }
+
+    const items = new Map(
+      data.items.map(item => [item.id,item])
+    );
+
+    let received = 0;
+
+    assets.forEach(id => {
+      const item = items.get(id);
+      const priceElement = document.getElementById("price-" + id);
+
+      if(!priceElement) return;
+
+      if(!item || typeof item.price !== "number") {
+        priceElement.textContent = "اطلاعات موجود نیست";
+        return;
+      }
+
+      priceElement.textContent = formatPrice(item.price);
+
+      const unit = item.unit === "IRT"
+        ? "تومان"
+        : (item.unit || "");
+
+      if(unit) {
+        priceElement.innerHTML =
+          formatPrice(item.price) +
+          ' <span class="unit">' + unit + '</span>';
+      }
+
+      showChange(id,item.change_pct);
+      received++;
+    });
+
+    if(received === 0) {
+      throw new Error("قیمتی از سرور دریافت نشد");
+    }
+
+    const isStale = data.stale === true;
+
+    if(isStale) {
+      showStatus(true,"اتصال برقرار است؛ اطلاعات ممکن است قدیمی باشد");
+    } else {
+      showStatus(true,"اتصال برقرار است | قیمت‌ها دریافت شدند");
+    }
+
+    document.getElementById("updateTime").textContent =
+      "آخرین به‌روزرسانی اطلاعات: " +
+      formatTime(data.generated_utc);
+
+  } catch(error) {
+    console.error("RATEX API Error:",error);
+
+    showStatus(false,"اتصال برقرار نشد؛ دوباره تلاش می‌کنیم");
+
+    document.getElementById("updateTime").textContent =
+      "دریافت اطلاعات با مشکل مواجه شد.";
+  }
+}
+
+loadPrices();
+
+setInterval(loadPrices,120000);
 </script>
 
 </body>
