@@ -540,7 +540,7 @@ setInterval(updateClock, 1000);
 async function updatePrices() {
     try {
         const response = await fetch(
-            "https://nerkhara.com/api/v1/prices"
+            "https://nerkhara.com/api/v1/latest.json"
         );
 
         if (!response.ok) {
